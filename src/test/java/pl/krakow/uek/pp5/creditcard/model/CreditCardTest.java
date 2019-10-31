@@ -32,6 +32,18 @@ public class CreditCardTest {
         } catch (CreditBelowMinimumException e) {
             Assert.assertTrue(true);
         }
+    }
 
+    @Test
+    public void withdrawFromCard() {
+        CreditCard card1 = new CreditCard("1234-5678");
+        CreditCard card2 = new CreditCard("1234-5678");
+        card1.assignLimit(BigDecimal.valueOf(1000));
+        card1.withdraw(BigDecimal.valueOf(500));
+        Assert.assertEquals(card1.currentBalance(), BigDecimal.valueOf(500));
+
+        card2.assignLimit(BigDecimal.valueOf(1000));
+        card2.withdraw(BigDecimal.valueOf(200));
+        Assert.assertEquals(card2.currentBalance(), BigDecimal.valueOf(800));
     }
 }
