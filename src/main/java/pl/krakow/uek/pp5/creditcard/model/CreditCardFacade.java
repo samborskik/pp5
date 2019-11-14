@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 
 class CreditCardFacade {
 
-    private final InMemoryCCStorage storage;
+    private final CreditCardStorage storage;
 
-    CreditCardFacade() {
-        this.storage = new InMemoryCCStorage();
+    CreditCardFacade(CreditCardStorage ccStorage) {
+        this.storage = ccStorage;
     }
 
     public void withdrawFromCard(String creditCardNumber, BigDecimal withdrawValue) {
