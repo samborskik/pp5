@@ -9,7 +9,6 @@ public class InMemoryCCStorage implements CreditCardStorage {
         cards = new HashMap<String, CreditCard>();
     }
     public void add(CreditCard card) {
-
         cards.put(card.cardNumber, card);
     }
 
