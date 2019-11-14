@@ -4,7 +4,17 @@ import java.math.BigDecimal;
 
 class CreditCardFacade {
 
-    public void withdrawFromCard(String creditCardNumber, BigDecimal withdrawValue) {
+    private final InMemoryCCStorage storage;
 
+    CreditCardFacade() {
+        this.storage = new InMemoryCCStorage();
+    }
+
+    public void withdrawFromCard(String creditCardNumber, BigDecimal withdrawValue) {
+        CreditCard loaded = storage.load(creditCardNumber);
+
+        loaded.withdraw(withdrawValue);
+
+        storage.add(loaded);
     }
 }
