@@ -1,11 +1,18 @@
 package pl.krakow.uek.pp5.creditcard.model;
 
-public class InMemoryCCStorage {
-    public void add(CreditCard card) {
+import java.util.HashMap;
 
+public class InMemoryCCStorage implements CreditCardStorage {
+    private HashMap<String, CreditCard> cards;
+
+    InMemoryCCStorage() {
+        cards = new HashMap<String, CreditCard>();
+    }
+    public void add(CreditCard card) {
+        cards.put(card.cardNumber, card);
     }
 
     public CreditCard load(String creditCardNumber) {
-        return null;
+        return cards.get(creditCardNumber);
     }
 }
