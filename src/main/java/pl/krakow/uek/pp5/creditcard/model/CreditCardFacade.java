@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 
 class CreditCardFacade {
 
-    private final CreditCardStorage storage;
+    private final InMemoryCCStorage storage;
 
-    CreditCardFacade(CreditCardStorage ccStorage) {
+    CreditCardFacade(InMemoryCCStorage ccStorage) {
         this.storage = ccStorage;
     }
 
@@ -16,5 +16,6 @@ class CreditCardFacade {
         loaded.withdraw(withdrawValue);
 
         storage.add(loaded);
+
     }
 }
