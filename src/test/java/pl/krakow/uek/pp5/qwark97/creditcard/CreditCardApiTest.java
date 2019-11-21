@@ -2,14 +2,15 @@ package pl.krakow.uek.pp5.qwark97.creditcard;
 
 import org.junit.Assert;
 import org.junit.Test;
+import pl.krakow.uek.pp5.qwark97.creditcard.model.CreditCardFacade;
 
 import java.math.BigDecimal;
 
 public class CreditCardApiTest {
 
-    public static final BigDecimal WITHDRAW_VALUE = BigDecimal.valueOf(500);
-    public static final String CREDIT_CARD_NUMBER = "1234-5678";
-    public static final int INITIAL_LIMIT = 1000;
+    private static final BigDecimal WITHDRAW_VALUE = BigDecimal.valueOf(500);
+    private static final String CREDIT_CARD_NUMBER = "1234-5678";
+    private static final int INITIAL_LIMIT = 1000;
     private InMemoryCCStorage ccStorage;
     private CreditCardFacade api;
 

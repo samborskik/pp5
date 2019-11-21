@@ -1,9 +1,12 @@
 package pl.krakow.uek.pp5.qwark97.creditcard.ui;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.web.bind.annotation.*;
+import pl.krakow.uek.pp5.qwark97.creditcard.CreditCard;
+import pl.krakow.uek.pp5.qwark97.creditcard.model.CreditCardFacade;
 import pl.krakow.uek.pp5.qwark97.creditcard.model.CreditCardDetailsDto;
+import pl.krakow.uek.pp5.qwark97.creditcard.model.WithdrawCommand;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -14,6 +17,10 @@ import java.util.List;
 @RequestMapping("/api")
 public class CardsManagementController {
 
+    public CardsManagementController(CreditCardFacade creditCardFacade) {
+        this.creditCardFacade = creditCardFacade;
+    }
+
     @GetMapping("/cards")
     public List<CreditCardDetailsDto> cardBalances() {
         return Arrays.asList(
@@ -21,5 +28,18 @@ public class CardsManagementController {
                 new CreditCardDetailsDto("5678", BigDecimal.valueOf(6000)),
                 new CreditCardDetailsDto("7890", BigDecimal.valueOf(1500))
         );
+    }
+
+    CreditCardFacade creditCardFacade;
+
+
+    @PostMapping("/cards/withdraw")
+    public void withdraw(@RequestBody WithdrawCommand withdrawCommand) {
+        creditCardFacade.handle(withdrawCommand);
+    }
+
+    @EventListener(ApplicationStartedEvent.class)
+    public void createSomeCards() {
+        String cardId = creditCardFacade.registerClient(BigDecimal.valueOf(2000));
     }
 }
