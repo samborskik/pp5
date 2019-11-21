@@ -1,4 +1,4 @@
-package pl.krakow.uek.pp5.creditcard.model;
+package pl.krakow.uek.pp5.qwark97.creditcard;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -31,7 +31,7 @@ public class CreditCardApiTest {
         Assert.assertEquals(expectedBallance, loaded.currentBalance());
     }
 
-    private void thereIsCCApi() {api = new CreditCardFacade(this.inMemoryCCStorage);}
+    private void thereIsCCApi() {api = new CreditCardFacade(this.ccStorage);}
 
     private void thereIsCreditCard() {
         CreditCard card = new CreditCard(CREDIT_CARD_NUMBER);

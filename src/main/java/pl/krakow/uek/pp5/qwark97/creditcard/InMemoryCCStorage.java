@@ -1,4 +1,4 @@
-package pl.krakow.uek.pp5.creditcard.model;
+package pl.krakow.uek.pp5.qwark97.creditcard;
 
 import java.util.HashMap;
 
