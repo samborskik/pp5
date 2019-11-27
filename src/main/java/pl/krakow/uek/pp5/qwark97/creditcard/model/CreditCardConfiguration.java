@@ -11,4 +11,8 @@ public class CreditCardConfiguration {
     CreditCardFacade create() {
         return  new CreditCardFacade(new InMemoryCCStorage());
     }
+    @Bean
+    InMemoryCCStorage createMem() {
+        return  new InMemoryCCStorage();
+    }
 }

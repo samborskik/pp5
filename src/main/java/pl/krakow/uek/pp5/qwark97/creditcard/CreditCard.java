@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 public class CreditCard {
     String cardNumber;
     private BigDecimal creditLimit;
-    private String slogan;
+    private String ownerName;
     private BigDecimal currentBalance;
 
     public CreditCard(String cardNumber) {
@@ -20,7 +20,6 @@ public class CreditCard {
             throw new CreditBelowMinimumException();
         }
         creditLimit = newLimit;
-        currentBalance = creditLimit;
     }
 
     public BigDecimal getLimit() {
@@ -37,5 +36,13 @@ public class CreditCard {
 
     public BigDecimal currentBalance() {
         return currentBalance;
+    }
+
+    public void addOwner(String owner) {
+        ownerName = owner;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        currentBalance = balance;
     }
 }
