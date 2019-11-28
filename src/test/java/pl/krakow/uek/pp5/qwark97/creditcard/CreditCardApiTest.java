@@ -2,7 +2,9 @@ package pl.krakow.uek.pp5.qwark97.creditcard;
 
 import org.junit.Assert;
 import org.junit.Test;
+import pl.krakow.uek.pp5.qwark97.creditcard.model.CreditCard;
 import pl.krakow.uek.pp5.qwark97.creditcard.model.CreditCardFacade;
+import pl.krakow.uek.pp5.qwark97.creditcard.model.InMemoryCCStorage;
 
 import java.math.BigDecimal;
 
@@ -21,7 +23,7 @@ public class CreditCardApiTest {
         thereIsCreditCard();
         thereIsCCApi();
 
-        api.withdrawFromCard(CREDIT_CARD_NUMBER, WITHDRAW_VALUE);
+        api.handle(CREDIT_CARD_NUMBER, WITHDRAW_VALUE);
 
         currentBalanceForCCEquals(CREDIT_CARD_NUMBER, BigDecimal.valueOf(500));
     }

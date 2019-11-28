@@ -1,4 +1,4 @@
-package pl.krakow.uek.pp5.qwark97.creditcard;
+package pl.krakow.uek.pp5.qwark97.creditcard.model;
 
 import pl.krakow.uek.pp5.qwark97.creditcard.exceptions.CreditBelowMinimumException;
 import pl.krakow.uek.pp5.qwark97.creditcard.exceptions.NotEnoughMoneyException;
@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 public class CreditCard {
     String cardNumber;
-    private BigDecimal creditLimit;
+    private BigDecimal limit;
     private String ownerName;
     private BigDecimal currentBalance;
 
@@ -19,11 +19,11 @@ public class CreditCard {
         if (BigDecimal.valueOf(100).compareTo(newLimit) == 1) {
             throw new CreditBelowMinimumException();
         }
-        creditLimit = newLimit;
+        limit = newLimit;
     }
 
     public BigDecimal getLimit() {
-        return creditLimit;
+        return limit;
     }
 
     public void withdraw(BigDecimal money) {
@@ -44,5 +44,9 @@ public class CreditCard {
 
     public void setBalance(BigDecimal balance) {
         currentBalance = balance;
+    }
+
+    public CreditCardDetailsDto details() {
+        return new CreditCardDetailsDto(cardNumber, currentBalance);
     }
 }

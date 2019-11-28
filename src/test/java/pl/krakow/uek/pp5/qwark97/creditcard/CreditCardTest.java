@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import pl.krakow.uek.pp5.qwark97.creditcard.exceptions.CreditBelowMinimumException;
 import pl.krakow.uek.pp5.qwark97.creditcard.exceptions.NotEnoughMoneyException;
+import pl.krakow.uek.pp5.qwark97.creditcard.model.CreditCard;
 
 import java.math.BigDecimal;
 
