@@ -1,11 +1,8 @@
 package pl.krakow.uek.pp5.qwark97.creditcard.model;
 
-import pl.krakow.uek.pp5.qwark97.creditcard.CreditCard;
-import pl.krakow.uek.pp5.qwark97.creditcard.InMemoryCCStorage;
-
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class CreditCardFacade {
@@ -16,19 +13,12 @@ public class CreditCardFacade {
         this.storage = ccStorage;
     }
 
-    public void withdrawFromCard(String creditCardNumber, BigDecimal withdrawValue) {
-        CreditCard loaded = storage.load(creditCardNumber);
-
-        loaded.withdraw(withdrawValue);
-
+    public void handle(WithdrawCommand command) {
+        CreditCard loaded = storage.load(command.getNumber());
+        loaded.withdraw(command.getAmount());
         storage.add(loaded);
-
     }
 
-    public void handle(HashMap<String, String> withdrawCommand) {
-        CreditCard card = storage.load(withdrawCommand.get("number"));
-        card.withdraw(new BigDecimal(withdrawCommand.get("withdrawAmount")));
-    }
     /*
     public List<CreditCardDetailsDto> raport() {
         return storage.all().stream()
@@ -39,5 +29,21 @@ public class CreditCardFacade {
     public String registerClient(BigDecimal valueOf) {
         String name = "asd";
         return name;
+    }
+
+    public String handle(RegisterNewCardCommand registerNewCardCommand) {
+        CreditCard creditCard = new CreditCard(UUID.randomUUID().toString());
+
+        creditCard.assignLimit(registerNewCardCommand.getCreditLimit());
+
+        storage.add(creditCard);
+
+        return creditCard.cardNumber;
+    }
+
+    public List<CreditCardDetailsDto> allCardsReport() {
+        return storage.loadAll().values().stream()
+                .map(cc -> cc.details())
+                .collect(Collectors.toList());
     }
 }

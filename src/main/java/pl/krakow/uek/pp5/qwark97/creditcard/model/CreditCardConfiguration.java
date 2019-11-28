@@ -2,7 +2,6 @@ package pl.krakow.uek.pp5.qwark97.creditcard.model;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import pl.krakow.uek.pp5.qwark97.creditcard.InMemoryCCStorage;
 
 @Configuration
 public class CreditCardConfiguration {

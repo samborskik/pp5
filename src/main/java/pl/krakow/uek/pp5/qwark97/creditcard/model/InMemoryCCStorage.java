@@ -1,8 +1,8 @@
-package pl.krakow.uek.pp5.qwark97.creditcard;
+package pl.krakow.uek.pp5.qwark97.creditcard.model;
 
 import java.util.HashMap;
 
-public class InMemoryCCStorage implements CreditCardStorage {
+class InMemoryCCStorage implements CreditCardStorage {
     private HashMap<String, CreditCard> cards;
 
     public InMemoryCCStorage() {

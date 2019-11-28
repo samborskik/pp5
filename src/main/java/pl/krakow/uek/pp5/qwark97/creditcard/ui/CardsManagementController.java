@@ -1,31 +1,27 @@
 package pl.krakow.uek.pp5.qwark97.creditcard.ui;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.web.bind.annotation.*;
-import pl.krakow.uek.pp5.qwark97.creditcard.CreditCard;
-import pl.krakow.uek.pp5.qwark97.creditcard.InMemoryCCStorage;
-import pl.krakow.uek.pp5.qwark97.creditcard.model.CreditCardFacade;
 import pl.krakow.uek.pp5.qwark97.creditcard.model.CreditCardDetailsDto;
+import pl.krakow.uek.pp5.qwark97.creditcard.model.CreditCardFacade;
+import pl.krakow.uek.pp5.qwark97.creditcard.model.RegisterNewCardCommand;
 import pl.krakow.uek.pp5.qwark97.creditcard.model.WithdrawCommand;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 public class CardsManagementController {
 
-    private InMemoryCCStorage inMemoryCCStorage;
     CreditCardFacade creditCardFacade;
 
-
-    public CardsManagementController(CreditCardFacade creditCardFacade, InMemoryCCStorage inMemoryCCStorage) {
+    @Autowired
+    public CardsManagementController(CreditCardFacade creditCardFacade) {
         this.creditCardFacade = creditCardFacade;
-        this.inMemoryCCStorage = inMemoryCCStorage;
     }
 
     @GetMapping("/fake-cards")
@@ -37,27 +33,18 @@ public class CardsManagementController {
         );
     }
     @PostMapping("/cards/add")
-    public void addCard(@RequestBody HashMap<String, String> withdrawCommand) {
-        CreditCard card = new CreditCard(withdrawCommand.get("number"));
-        card.assignLimit(new BigDecimal(withdrawCommand.get("limit")));
-        card.addOwner(withdrawCommand.get("owner"));
-        card.setBalance(new BigDecimal(withdrawCommand.get("balance")));
-        inMemoryCCStorage.add(card);
-
+    public void addCard(@RequestBody RegisterNewCardCommand registerNewCardCommand) {
+        creditCardFacade.handle(registerNewCardCommand);
     }
 
     @GetMapping("/cards")
-    public HashMap cardBalances() {
-
-        HashMap allCards = inMemoryCCStorage.loadAll();
-        System.out.print(allCards); // jak wyswietlic wszystko co w slowniku; czy wyplacanie działa?
-        return allCards;
+    public List<CreditCardDetailsDto> cardBalances() {
+        return creditCardFacade.allCardsReport();
     }
 
 
     @PostMapping("/cards/withdraw")
-    public void withdraw(@RequestBody HashMap<String, String> withdrawCommand) {
-        System.out.print("here");
+    public void withdraw(@RequestBody WithdrawCommand withdrawCommand) {
         creditCardFacade.handle(withdrawCommand);
     }
 
