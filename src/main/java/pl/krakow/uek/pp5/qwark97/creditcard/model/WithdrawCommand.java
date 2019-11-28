@@ -9,6 +9,11 @@ public class WithdrawCommand {
     public WithdrawCommand() {
     }
 
+    public WithdrawCommand(String number, BigDecimal amount) {
+        this.number = number;
+        this.amount = amount;
+    }
+
     public String getNumber() {
         return number;
     }
